@@ -268,126 +268,128 @@ footer {
   </div>
 
   <script>
-   const products = [
-  { name: "Luxury Leather Chair", price: 199, image: "images/luxury-leather-chair.webp" },
-  { name: "Modern Office Chair", price: 149, image: "images/modern-office-chair.avif" },
-  { name: "Classic Wooden Chair", price: 99, image: "images/classic-wooden-chair.jpeg" }
-];
-
-
-const cart = [];
-const productList = document.getElementById("product-list");
-const cartItems = document.getElementById("cart-items");
-const cartCount = document.getElementById("cart-count");
-const totalPrice = document.getElementById("total-price");
-const cartBarItems = document.getElementById("cart-bar-items");
-const cartBarTotal = document.getElementById("cart-bar-total");
-
-// Function to update the cart
-function updateCart() {
-  cartItems.innerHTML = "";
-  cartBarItems.innerHTML = "";
-  let total = 0;
-
-  cart.forEach((item, index) => {
-    const barItem = document.createElement("span");
-    barItem.style.marginRight = "10px";
-    barItem.textContent = `${item.name} ($${item.price})`;
-    cartBarItems.appendChild(barItem);
-
-    const sectionItem = document.createElement("div");
-    sectionItem.style.display = "flex";
-    sectionItem.style.justifyContent = "space-between";
-    sectionItem.style.borderBottom = "1px solid #ccc";
-    sectionItem.style.padding = "0.5rem 0";
-
-    // Add Remove button
-    const removeBtn = document.createElement("button");
-    removeBtn.textContent = "Remove";
-    removeBtn.className = "btn";
-    removeBtn.style.marginLeft = "10px";
-    removeBtn.onclick = () => removeFromCart(index);
-
-    sectionItem.innerHTML = `<span>${item.name}</span><strong>$${item.price}</strong>`;
-    sectionItem.appendChild(removeBtn);
-    cartItems.appendChild(sectionItem);
-
-    total += item.price;
-  });
-
-  cartCount.textContent = cart.length;
-  totalPrice.textContent = total.toFixed(2);
-  cartBarTotal.textContent = total.toFixed(2);
-}
-
-// Function to remove item from cart
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCart();
-}
-
-// Function to clear the cart
-function clearCart() {
-  cart.length = 0; // Empty the cart array
-  updateCart();
-}
-
-// Add Clear Cart button next to Checkout
-document.getElementById("checkout-btn").insertAdjacentHTML(
-  "afterend",
-  '<button id="clear-cart-btn" class="btn" style="margin-left: 10px;">Clear Cart</button>'
-);
-document.getElementById("clear-cart-btn").addEventListener("click", clearCart);
-
-// Generate product cards
-products.forEach((product, index) => {
-  const div = document.createElement("div");
-  div.className = "product";
-  div.innerHTML = `
-    <img src="${product.image}" alt="${product.name}" />
-    <h3>${product.name}</h3>
-    <p>$${product.price}</p>
-    <button class="btn" onclick="addToCart(${index})">Add to Cart</button>
-  `;
-  productList.appendChild(div);
-});
-
-function addToCart(index) {
-  cart.push(products[index]);
-  updateCart();
-}
-
-document.getElementById("contact-form").addEventListener("submit", function (e) {
-  e.preventDefault();
-  alert("Thank you for contacting us!");
-  this.reset();
-});
-
-document.getElementById("checkout-btn").addEventListener("click", function () {
-  if (cart.length === 0) {
-    alert("Your cart is empty!");
-    return;
-  }
-  alert("Proceeding to checkout...");
-});
-
-function toggleTheme() {
-  const html = document.documentElement;
-  const currentTheme = html.getAttribute("data-theme");
-  const newTheme = currentTheme === "dark" ? "light" : "dark";
-  html.setAttribute("data-theme", newTheme);
-  localStorage.setItem("theme", newTheme);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const savedTheme = localStorage.getItem("theme") || "light";
-  document.documentElement.setAttribute("data-theme", savedTheme);
-});
-
+    const products = [
+      { name: "Luxury Leather Chair", price: 199, image: "images/luxury-leather-chair.webp" },
+      { name: "Modern Office Chair", price: 149, image: "images/modern-office-chair.avif" },
+      { name: "Classic Wooden Chair", price: 99, image: "images/classic-wooden-chair.jpeg" }
+    ];
+  
+    const cart = [];
+    const productList = document.getElementById("product-list");
+    const cartItems = document.getElementById("cart-items");
+    const cartCount = document.getElementById("cart-count");
+    const totalPrice = document.getElementById("total-price");
+    const cartBarItems = document.getElementById("cart-bar-items");
+    const cartBarTotal = document.getElementById("cart-bar-total");
+  
+    // Function to update the cart
+    function updateCart() {
+      cartItems.innerHTML = "";
+      cartBarItems.innerHTML = "";
+      let total = 0;
+  
+      cart.forEach((item, index) => {
+        const barItem = document.createElement("span");
+        barItem.style.marginRight = "10px";
+        barItem.textContent = `${item.name} ($${item.price})`;
+        cartBarItems.appendChild(barItem);
+  
+        const sectionItem = document.createElement("div");
+        sectionItem.style.display = "flex";
+        sectionItem.style.justifyContent = "space-between";
+        sectionItem.style.borderBottom = "1px solid #ccc";
+        sectionItem.style.padding = "0.5rem 0";
+  
+        // Add Remove button
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        removeBtn.className = "btn";
+        removeBtn.style.marginLeft = "10px";
+        removeBtn.onclick = () => removeFromCart(index);
+  
+        sectionItem.innerHTML = `<span>${item.name}</span><strong>$${item.price}</strong>`;
+        sectionItem.appendChild(removeBtn);
+        cartItems.appendChild(sectionItem);
+  
+        total += item.price;
+      });
+  
+      cartCount.textContent = cart.length;
+      totalPrice.textContent = total.toFixed(2);
+      cartBarTotal.textContent = total.toFixed(2);
+    }
+  
+    // Function to remove item from cart
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+  
+    // Function to clear the cart
+    function clearCart() {
+      cart.length = 0; // Empty the cart array
+      updateCart();
+    }
+  
+    // Add Clear Cart button next to Checkout
+    document.getElementById("checkout-btn").insertAdjacentHTML(
+      "afterend",
+      '<button id="clear-cart-btn" class="btn" style="margin-left: 10px;">Clear Cart</button>'
+    );
+    document.getElementById("clear-cart-btn").addEventListener("click", clearCart);
+  
+    // Generate product cards
+    products.forEach((product, index) => {
+      const div = document.createElement("div");
+      div.className = "product";
+      div.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" />
+        <h3>${product.name}</h3>
+        <p>$${product.price}</p>
+        <button class="btn" onclick="addToCart(${index})">Add to Cart</button>
+      `;
+      productList.appendChild(div);
+    });
+  
+    function addToCart(index) {
+      cart.push(products[index]);
+      updateCart();
+    }
+  
+    document.getElementById("contact-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Thank you for contacting us!");
+      this.reset();
+    });
+  
+    // Update Checkout Button to redirect
+    document.getElementById("checkout-btn").addEventListener("click", function () {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      // Redirect to checkout.html
+      window.location.href = "checkout.html";
+    });
+  
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute("data-theme");
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+    }
+  
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    });
   </script>
+  
 
   <footer>
     <p>&copy; 2025 Walia Shop. All rights reserved.</p>
   </footer>
 </body>
 </html>
+
