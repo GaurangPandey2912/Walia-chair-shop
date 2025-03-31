@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login & Signup - Walia Shop</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <style>
+/* Root Theme Variables */
+:root {
+  --bg-color: #f9f9f9;
+  --text-color: #000;
+  --header-bg: #fff;
+  --btn-bg: #333;
+  --btn-text: #fff;
+  --card-bg: #fff;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #f9f9f9;
+  --header-bg: #1e1e1e;
+  --btn-bg: #444;
+  --btn-text: #fff;
+  --card-bg: #1e1e1e;
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+  padding-bottom: 80px;
+}
+
+/* Header & Navbar */
+header {
+  background-color: var(--header-bg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.nav-links a:hover {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+}
+
+.theme-toggle:hover {
+  transform: rotate(20deg);
+}
+
+/* Login & Signup Section */
+.auth-section {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.auth-form {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.auth-form h2 {
+  margin-bottom: 1.5rem;
+}
+
+.auth-form input {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  background: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 5px;
+}
+
+.auth-form button {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.auth-form button:hover {
+  background: #555;
+  transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #222;
+  color: white;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 class="logo">Walia Shop</h1>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="home.html">Shop</a></li>
+          <li><a href="home.html">About</a></li>
+          <li><a href="home.html">Contact</a></li>
+          <li><a href="checkout.html">Cart (<span id="cart-count">0</span>)</a></li>
+        </ul>
+      </nav>
+      <span class="theme-toggle" onclick="toggleTheme()">🌓</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="auth-section">
+      <div class="auth-form" id="login-form">
+        <h2>Login</h2>
+        <form>
+          <input type="email" id="login-email" placeholder="Email" required />
+          <input type="password" id="login-password" placeholder="Password" required />
+          <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="javascript:void(0);" onclick="showSignupForm()">Sign Up</a></p>
+      </div>
+
+      <div class="auth-form" id="signup-form" style="display: none;">
+        <h2>Sign Up</h2>
+        <form>
+          <input type="text" id="signup-name" placeholder="Full Name" required />
+          <input type="email" id="signup-email" placeholder="Email" required />
+          <input type="password" id="signup-password" placeholder="Password" required />
+          <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required />
+          <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="javascript:void(0);" onclick="showLoginForm()">Login</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Walia Shop. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute("data-theme");
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    });
+
+    // Form Toggle Logic
+    function showSignupForm() {
+      document.getElementById("login-form").style.display = "none";
+      document.getElementById("signup-form").style.display = "block";
+    }
+
+    function showLoginForm() {
+      document.getElementById("signup-form").style.display = "none";
+      document.getElementById("login-form").style.display = "block";
+    }
+  </script>
+</body>
+</html>
